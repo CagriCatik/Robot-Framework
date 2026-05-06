@@ -15,7 +15,6 @@ theme:
     - navigation.instant
     - navigation.tracking
     - navigation.tabs
-    - navigation.sections
     - navigation.top
     - toc.follow
     - search.suggest
@@ -57,22 +56,22 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - "01. Introduction":
+  - Introduction:
       - Overview: 01_overview.md
       - About: 02_about.md
-  - "02. Getting Started":
+  - Getting Started:
       - Installation: 03_installation.md
       - Configuration: 04_configuration.md
-  - "03. Core Concepts":
+  - Core Concepts:
       - Project Structure: 05_robot-project.md
       - Settings Section: 06_settings_section.md
       - Test Suites & Cases: 07_test_suites_and_cases.md
-  - "04. Execution & Variables":
+  - Execution & Variables:
       - Execution & Logging: 08_execution_and_logging.md
       - Variables Deep Dive: 09_variables_deep_dive.md
-  - "05. Advanced Automation":
+  - Advanced Automation:
       - User Keywords: 10_user_keywords.md
       - Resource Files: 11_resource_files.md
-  - "06. Best Practices & Help":
+  - Best Practices & Help:
       - Best Practices: 12_best_practices.md
       - Troubleshooting: 13_troubleshooting.md

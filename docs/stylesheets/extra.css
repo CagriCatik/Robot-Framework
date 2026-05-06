@@ -147,11 +147,25 @@ html, body {
 /* Remove dark background from sidebar titles and active navigation items */
 .md-nav__title,
 .md-nav__item--active > .md-nav__link,
+.md-nav__item--section,
+.md-nav__item--section > .md-nav__title,
+.md-nav__item--section > .md-nav__link,
 .md-tabs__link--active,
-.md-tabs__item--active .md-tabs__link {
+.md-tabs__item--active .md-tabs__link,
+.md-nav__link:hover,
+.md-nav__title:hover {
     background: transparent !important;
     background-color: transparent !important;
     box-shadow: none !important;
+}
+
+/* Ensure no pseudo-elements are creating the background */
+.md-nav__item--active > .md-nav__link::before,
+.md-nav__item--active > .md-nav__link::after,
+.md-nav__item--section > .md-nav__title::before,
+.md-nav__item--section > .md-nav__title::after {
+    background: transparent !important;
+    background-color: transparent !important;
 }
 
 

@@ -1,0 +1,186 @@
+:root {
+    /* Robot Framework Professional Palette */
+    --brand-primary: #0073b7;        /* Robot Blue */
+    --brand-primary-dark: #005a91;
+    --brand-primary-light: #3c91c7;
+    --brand-accent: #f39c12;         /* Robot Orange */
+    
+    /* Neutral Surfaces - Deep Slate/Navy */
+    --bg-main: #0b1021;
+    --bg-card: rgba(30, 41, 59, 0.7);
+    --border-soft: rgba(255, 255, 255, 0.1);
+    --border-accent: rgba(0, 115, 183, 0.3);
+    
+    /* Typography - High Contrast */
+    --text-heading: #ffffff;
+    --text-body: #e2e8f0;
+    --text-muted: #94a3b8;
+
+    /* Material Overrides */
+    --md-primary-fg-color: var(--brand-primary);
+    --md-primary-fg-color--light: var(--brand-primary-light);
+    --md-primary-fg-color--dark: var(--brand-primary-dark);
+    --md-accent-fg-color: var(--brand-accent);
+    --md-default-bg-color: var(--bg-main);
+    --md-default-fg-color: var(--text-body);
+}
+
+/* Base Adjustments */
+html, body {
+    background-color: var(--bg-main);
+    color: var(--text-body);
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Premium Hero Section */
+.hero-shell {
+    position: relative;
+    padding: 4rem 2rem;
+    margin-bottom: 3rem;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, rgba(0, 115, 183, 0.15), rgba(11, 16, 33, 0.8)),
+                url('https://images.unsplash.com/photo-1518433278981-167993402012?auto=format&fit=crop&q=80&w=1200'); /* Subtle technical background */
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--border-accent);
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.hero-shell::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at top right, rgba(243, 156, 18, 0.1), transparent 40%);
+    pointer-events: none;
+}
+
+.hero-kicker {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 115, 183, 0.2);
+    border: 1px solid var(--brand-primary);
+    border-radius: 2rem;
+    color: var(--brand-primary-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.hero-shell h1 {
+    font-size: clamp(2rem, 4vw, 3rem) !important;
+    font-weight: 700 !important;
+    color: var(--text-heading) !important;
+    line-height: 1.2;
+    margin-bottom: 1rem !important;
+}
+
+.hero-lead {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 2rem !important;
+    color: var(--text-body);
+    opacity: 0.9;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.hero-actions .md-button--primary {
+    background-color: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+    padding: 0.75rem 2rem;
+    font-weight: 700;
+}
+
+.hero-actions .md-button:not(.md-button--primary) {
+    border: 1px solid var(--text-muted);
+    color: var(--text-heading);
+    padding: 0.75rem 2rem;
+}
+
+/* Feature Grid */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.feature-card {
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 0.5rem;
+}
+
+.feature-card:hover {
+    border-color: var(--brand-primary);
+}
+
+.feature-card h3 {
+    color: var(--brand-primary-light) !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 600 !important;
+}
+
+.feature-card p {
+    color: var(--text-body) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important; /* Smaller text size for features */
+}
+
+/* Navigation Overrides */
+.md-nav__link--active {
+    color: var(--brand-primary-light) !important;
+    font-weight: 700;
+}
+
+/* Remove dark background from sidebar titles and active navigation items */
+.md-nav__title,
+.md-nav__item--active > .md-nav__link,
+.md-tabs__link--active,
+.md-tabs__item--active .md-tabs__link {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+
+/* Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--brand-primary-dark);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-primary);
+}

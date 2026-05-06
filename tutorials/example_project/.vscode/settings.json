@@ -1,0 +1,12 @@
+{
+  "robot.language-server.python": "${workspaceFolder}/../../.venv/Scripts/python.exe",
+  "robot.python.executable": "${workspaceFolder}/../../.venv/Scripts/python.exe",
+  "robot.pythonpath": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/libraries"
+  ],
+  "files.associations": {
+    "*.resource": "robotframework"
+  }
+}
+

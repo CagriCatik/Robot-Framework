@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoCenter Display Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SVG icon sprites — referenced by <use> throughout the page
+     ═══════════════════════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-navigation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+    <circle cx="12" cy="10" r="3"/>
+  </symbol>
+  <symbol id="icon-media" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </symbol>
+  <symbol id="icon-climate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="2"  x2="12" y2="22"/>
+    <line x1="2"  y1="12" x2="22" y2="12"/>
+    <path d="m20 16-4-4 4-4"/>
+    <path d="m4 8 4 4-4 4"/>
+    <path d="m16 4-4 4-4-4"/>
+    <path d="m8 20 4-4 4 4"/>
+  </symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.77 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.68 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.64a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </symbol>
+  <symbol id="icon-vehicle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.5V16h2"/>
+    <circle cx="6.5"  cy="16.5" r="2.5"/>
+    <circle cx="16.5" cy="16.5" r="2.5"/>
+  </symbol>
+  <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </symbol>
+  <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+    <circle cx="12" cy="13" r="4"/>
+  </symbol>
+  <symbol id="icon-weather" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>
+    <path d="M9 19v3M12 20v2M15 19v3"/>
+  </symbol>
+  <!-- weather condition icons -->
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1"  x2="12" y2="3"/>  <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22"  x2="5.64"  y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3"  y2="12"/>  <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+    <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+  </symbol>
+  <symbol id="icon-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>
+  </symbol>
+  <symbol id="icon-partly-cloudy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M12 2v2M17.66 4.34l-1.41 1.41M20 10h2M17.66 15.66l-1.41-1.41"/>
+    <circle cx="9" cy="10" r="3"/>
+    <path d="M19 18H7a5 5 0 0 1-1.84-9.65A5.5 5.5 0 0 1 14 5"/>
+  </symbol>
+  <symbol id="icon-rain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"/>
+    <line x1="8"  y1="16" x2="8"  y2="21"/>
+    <line x1="12" y1="16" x2="12" y2="23"/>
+    <line x1="16" y1="16" x2="16" y2="21"/>
+  </symbol>
+  <!-- status bar mini-icons -->
+  <symbol id="icon-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <path d="M5 13a10 10 0 0 1 14 0"/>
+    <path d="M8.5 16.5a5 5 0 0 1 7 0"/>
+    <circle cx="12" cy="20" r="1" fill="currentColor"/>
+  </symbol>
+  <symbol id="icon-bluetooth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"/>
+  </symbol>
+  <symbol id="icon-fuel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v9"/>
+    <path d="M13 13h3a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9l-3-3"/>
+    <line x1="3" y1="11" x2="13" y2="11"/>
+  </symbol>
+  <symbol id="icon-music-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </symbol>
+</svg>
+
+<div id="simulator-root" data-testid="simulator-root">
+
+  <!-- ═══════════ STATUS BAR ═══════════ -->
+  <div id="status-bar" data-testid="status-bar">
+    <div class="status-left">
+      <span id="status-time" data-testid="status-time" aria-label="Current time">00:00</span>
+    </div>
+    <div class="status-center">
+      <span id="status-app-title" data-testid="status-app-title">HOME</span>
+    </div>
+    <div class="status-right">
+      <span id="status-outdoor-temp" data-testid="status-outdoor-temp" aria-label="Outdoor temperature">18°C</span>
+      <span id="status-wifi"      data-testid="status-wifi"      data-state="on"  aria-label="Wi-Fi status"    class="status-icon-wrap status-on">
+        <svg class="status-svg"><use href="#icon-wifi"/></svg>
+      </span>
+      <span id="status-bluetooth" data-testid="status-bluetooth" data-state="off" aria-label="Bluetooth status" class="status-icon-wrap status-off">
+        <svg class="status-svg"><use href="#icon-bluetooth"/></svg>
+      </span>
+      <span id="status-fuel" data-testid="status-fuel" aria-label="Fuel level" class="status-icon-wrap fuel-wrap">
+        <svg class="status-svg"><use href="#icon-fuel"/></svg>
+        <span id="status-fuel-value" data-testid="status-fuel-value">75%</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ═══════════ SCREENS ═══════════ -->
+  <div id="screens-container" data-testid="screens-container">
+
+    <!-- ─── HOME ─── -->
+    <div id="screen-home" class="screen active" data-testid="screen-home" aria-label="Home Screen">
+
+      <div class="home-header">
+        <div class="home-greeting-block">
+          <span class="home-welcome">Welcome</span>
+          <span id="home-date" data-testid="home-date" class="home-date"></span>
+        </div>
+        <div id="home-now-playing" class="home-now-playing" data-testid="home-now-playing">
+          <svg class="np-icon"><use href="#icon-music-note"/></svg>
+          <div class="np-text">
+            <span id="home-np-track"  data-testid="home-np-track">Roadtrip Vibes</span>
+            <span id="home-np-artist" data-testid="home-np-artist" class="np-artist">Summer Beats</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="home-app-grid" class="app-grid" data-testid="app-grid">
+
+        <button id="app-icon-navigation" class="app-icon" data-app="navigation" data-testid="app-icon-navigation"
+                aria-label="Open Navigation" onclick="navigateTo('navigation')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-navigation"/></svg>
+          </div>
+          <span class="app-icon-label">Navigation</span>
+        </button>
+
+        <button id="app-icon-media" class="app-icon" data-app="media" data-testid="app-icon-media"
+                aria-label="Open Media" onclick="navigateTo('media')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-media"/></svg>
+          </div>
+          <span class="app-icon-label">Media</span>
+        </button>
+
+        <button id="app-icon-climate" class="app-icon" data-app="climate" data-testid="app-icon-climate"
+                aria-label="Open Climate Control" onclick="navigateTo('climate')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-climate"/></svg>
+          </div>
+          <span class="app-icon-label">Climate</span>
+        </button>
+
+        <button id="app-icon-phone" class="app-icon" data-app="phone" data-testid="app-icon-phone"
+                aria-label="Open Phone" onclick="navigateTo('phone')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-phone"/></svg>
+          </div>
+          <span class="app-icon-label">Phone</span>
+        </button>
+
+        <button id="app-icon-vehicle" class="app-icon" data-app="vehicle" data-testid="app-icon-vehicle"
+                aria-label="Open Vehicle Status" onclick="navigateTo('vehicle')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-vehicle"/></svg>
+          </div>
+          <span class="app-icon-label">Vehicle</span>
+        </button>
+
+        <button id="app-icon-settings" class="app-icon" data-app="settings" data-testid="app-icon-settings"
+                aria-label="Open Settings" onclick="navigateTo('settings')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-settings"/></svg>
+          </div>
+          <span class="app-icon-label">Settings</span>
+        </button>
+
+        <button id="app-icon-camera" class="app-icon" data-app="camera" data-testid="app-icon-camera"
+                aria-label="Open Camera" onclick="navigateTo('camera')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-camera"/></svg>
+          </div>
+          <span class="app-icon-label">Camera</span>
+        </button>
+
+        <button id="app-icon-weather" class="app-icon" data-app="weather" data-testid="app-icon-weather"
+                aria-label="Open Weather" onclick="navigateTo('weather')">
+          <div class="app-icon-graphic">
+            <svg class="app-svg"><use href="#icon-weather"/></svg>
+          </div>
+          <span class="app-icon-label">Weather</span>
+        </button>
+
+      </div>
+    </div><!-- /screen-home -->
+
+    <!-- ─── NAVIGATION ─── -->
+    <div id="screen-navigation" class="screen hidden" data-testid="screen-navigation" aria-label="Navigation Screen">
+      <div class="screen-header">
+        <h2>Navigation</h2>
+      </div>
+      <div class="nav-search-bar">
+        <input type="text" id="nav-destination-input" data-testid="nav-destination-input"
+               placeholder="Enter destination…" aria-label="Destination input">
+        <button id="nav-search-button" data-testid="nav-search-button"
+                aria-label="Search destination" onclick="searchDestination()">Search</button>
+      </div>
+      <div id="nav-map-display" class="nav-map" data-testid="nav-map-display" aria-label="Map display">
+        <div class="map-grid"></div>
+        <div id="nav-vehicle-marker" class="vehicle-marker" aria-label="Vehicle position">▲</div>
+        <div id="nav-turn-arrow" class="turn-arrow hidden" data-testid="nav-turn-arrow"></div>
+      </div>
+      <div class="nav-info-panel">
+        <div class="nav-info-item">
+          <span class="nav-info-label">Destination</span>
+          <span id="nav-destination-display" data-testid="nav-destination-display">---</span>
+        </div>
+        <div class="nav-info-item">
+          <span class="nav-info-label">ETA</span>
+          <span id="nav-eta-display" data-testid="nav-eta-display">---</span>
+        </div>
+        <div class="nav-info-item">
+          <span class="nav-info-label">Distance</span>
+          <span id="nav-distance-display" data-testid="nav-distance-display">---</span>
+        </div>
+        <div class="nav-info-item">
+          <span class="nav-info-label">Next Turn</span>
+          <span id="nav-turn-display" data-testid="nav-turn-display">---</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── MEDIA ─── -->
+    <div id="screen-media" class="screen hidden" data-testid="screen-media" aria-label="Media Screen">
+      <div class="screen-header"><h2>Media</h2></div>
+      <div class="media-source-tabs">
+        <button id="media-source-radio"     class="source-tab active" data-testid="media-source-radio"     aria-label="Radio source"     onclick="setMediaSource('radio')">Radio</button>
+        <button id="media-source-bluetooth" class="source-tab"        data-testid="media-source-bluetooth" aria-label="Bluetooth source" onclick="setMediaSource('bluetooth')">Bluetooth</button>
+        <button id="media-source-usb"       class="source-tab"        data-testid="media-source-usb"       aria-label="USB source"       onclick="setMediaSource('usb')">USB</button>
+      </div>
+      <div class="media-display">
+        <div id="media-album-art" class="album-art" data-testid="media-album-art">
+          <svg style="width:56px;height:56px;opacity:.6"><use href="#icon-media"/></svg>
+        </div>
+        <div class="media-track-info">
+          <div id="media-track-name"     class="track-name"     data-testid="media-track-name">Roadtrip Vibes</div>
+          <div id="media-artist-name"    class="artist-name"    data-testid="media-artist-name">Summer Beats</div>
+          <div id="media-source-display" class="source-display" data-testid="media-source-display">Radio FM · 93.5</div>
+        </div>
+      </div>
+      <div class="media-progress-row">
+        <span id="media-elapsed-time" data-testid="media-elapsed-time">1:24</span>
+        <div class="media-progress-bar">
+          <div id="media-progress-fill" class="progress-fill" data-testid="media-progress-fill" style="width:35%"></div>
+        </div>
+        <span id="media-total-time" data-testid="media-total-time">3:45</span>
+      </div>
+      <div class="media-controls">
+        <button id="media-prev-button"       data-testid="media-prev-button"       aria-label="Previous track" onclick="mediaPrev()">
+          <svg style="width:22px;height:22px"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button id="media-play-pause-button" data-testid="media-play-pause-button" aria-label="Play or pause" data-state="playing" onclick="mediaPlayPause()">
+          <svg id="media-play-icon" style="width:28px;height:28px;display:none"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+          <svg id="media-pause-icon" style="width:28px;height:28px"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button id="media-next-button" data-testid="media-next-button" aria-label="Next track" onclick="mediaNext()">
+          <svg style="width:22px;height:22px"><path fill="currentColor" d="M6 18l8.5-6L6 6v12zm2.5-6 8.5 6V6l-8.5 6zM16 6h2v12h-2z"/></svg>
+        </button>
+      </div>
+      <div class="media-volume-row">
+        <button id="media-volume-down" data-testid="media-volume-down" aria-label="Volume down" onclick="adjustVolume(-5)">
+          <svg style="width:20px;height:20px"><path fill="currentColor" d="M18.5 12A4.5 4.5 0 0 0 16 7.97V16c1.48-.73 2.5-2.25 2.5-4zM5 9v6h4l5 5V4L9 9H5zm7 8.17L9.83 15H7v-6h2.83L12 6.83v10.34z"/></svg>
+        </button>
+        <div class="volume-track">
+          <div id="media-volume-fill" class="volume-fill" data-testid="media-volume-fill" style="width:50%"></div>
+        </div>
+        <span id="media-volume-value" data-testid="media-volume-value" aria-live="polite">50</span>
+        <button id="media-volume-up" data-testid="media-volume-up" aria-label="Volume up" onclick="adjustVolume(5)">
+          <svg style="width:20px;height:20px"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ─── CLIMATE ─── -->
+    <div id="screen-climate" class="screen hidden" data-testid="screen-climate" aria-label="Climate Control Screen">
+      <div class="screen-header"><h2>Climate Control</h2></div>
+      <div class="climate-main">
+
+        <div class="climate-zone" id="climate-zone-driver" data-testid="climate-zone-driver">
+          <div class="zone-label">Driver</div>
+          <button id="climate-temp-up" data-testid="climate-temp-up" class="temp-btn"
+                  aria-label="Increase driver temperature" onclick="adjustTemp('driver',1)">
+            <svg style="width:20px;height:20px"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+          </button>
+          <div id="climate-temperature-value" class="temp-display" data-testid="climate-temperature-value" aria-live="polite">22°C</div>
+          <button id="climate-temp-down" data-testid="climate-temp-down" class="temp-btn"
+                  aria-label="Decrease driver temperature" onclick="adjustTemp('driver',-1)">
+            <svg style="width:20px;height:20px"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+          </button>
+          <div class="seat-heat-row">
+            <svg style="width:14px;height:14px;opacity:.6"><path fill="currentColor" d="M18.4 10.6C16.55 9 14.8 7.06 14 5c-2.36 4.24-7.51 5.25-7.51 10.28C6.49 18.44 8.9 21 12 21c3.11 0 5.5-2.55 5.5-5.72 0-1.83-.8-3.35-1.92-4.63l.82.95zM12 19c-1.65 0-3-1.35-3-3 0-1.41.9-2.48 2.28-3.34.88 1.14 1.51 2.3 1.72 3.34.28 0 .47-.02.69-.08C13.58 17.32 12.98 19 12 19z"/></svg>
+            <span>Seat Heat</span>
+            <button id="climate-driver-seat-heat" class="seat-heat-btn" data-testid="climate-driver-seat-heat"
+                    data-state="off" aria-label="Driver seat heat level" onclick="toggleSeatHeat('driver')">OFF</button>
+          </div>
+        </div>
+
+        <div class="climate-center" id="climate-controls-center" data-testid="climate-controls-center">
+          <div class="fan-speed-section">
+            <span class="climate-label">Fan Speed</span>
+            <div class="fan-row">
+              <button id="climate-fan-up"   data-testid="climate-fan-up"   class="ctrl-btn" aria-label="Increase fan speed" onclick="adjustFan(1)">+</button>
+              <span   id="climate-fan-speed-value" data-testid="climate-fan-speed-value" class="fan-display" aria-live="polite">2</span>
+              <button id="climate-fan-down" data-testid="climate-fan-down" class="ctrl-btn" aria-label="Decrease fan speed" onclick="adjustFan(-1)">−</button>
+            </div>
+            <div class="fan-bars" id="climate-fan-bars" data-testid="climate-fan-bars">
+              <div class="fb fb1"></div><div class="fb fb2"></div><div class="fb fb3"></div>
+              <div class="fb fb4"></div><div class="fb fb5"></div><div class="fb fb6"></div>
+              <div class="fb fb7"></div>
+            </div>
+          </div>
+          <div class="climate-toggles">
+            <button id="climate-ac-toggle"          class="toggle-btn" data-testid="climate-ac-toggle"          data-state="on"  aria-label="A/C toggle"           onclick="toggleClimate('ac')">A/C ON</button>
+            <button id="climate-sync-toggle"        class="toggle-btn" data-testid="climate-sync-toggle"        data-state="off" aria-label="Sync temperatures"    onclick="toggleClimate('sync')">SYNC OFF</button>
+            <button id="climate-defrost-toggle"     class="toggle-btn" data-testid="climate-defrost-toggle"     data-state="off" aria-label="Defrost toggle"       onclick="toggleClimate('defrost')">DEFROST OFF</button>
+            <button id="climate-recirculate-toggle" class="toggle-btn" data-testid="climate-recirculate-toggle" data-state="off" aria-label="Air recirculation"    onclick="toggleClimate('recirculate')">RECIRC OFF</button>
+          </div>
+        </div>
+
+        <div class="climate-zone" id="climate-zone-passenger" data-testid="climate-zone-passenger">
+          <div class="zone-label">Passenger</div>
+          <button id="climate-passenger-temp-up" data-testid="climate-passenger-temp-up" class="temp-btn"
+                  aria-label="Increase passenger temperature" onclick="adjustTemp('passenger',1)">
+            <svg style="width:20px;height:20px"><path fill="currentColor" d="M7 14l5-5 5 5H7z"/></svg>
+          </button>
+          <div id="climate-passenger-temp-value" class="temp-display" data-testid="climate-passenger-temp-value" aria-live="polite">21°C</div>
+          <button id="climate-passenger-temp-down" data-testid="climate-passenger-temp-down" class="temp-btn"
+                  aria-label="Decrease passenger temperature" onclick="adjustTemp('passenger',-1)">
+            <svg style="width:20px;height:20px"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>
+          </button>
+          <div class="seat-heat-row">
+            <svg style="width:14px;height:14px;opacity:.6"><path fill="currentColor" d="M18.4 10.6C16.55 9 14.8 7.06 14 5c-2.36 4.24-7.51 5.25-7.51 10.28C6.49 18.44 8.9 21 12 21c3.11 0 5.5-2.55 5.5-5.72 0-1.83-.8-3.35-1.92-4.63l.82.95zM12 19c-1.65 0-3-1.35-3-3 0-1.41.9-2.48 2.28-3.34.88 1.14 1.51 2.3 1.72 3.34.28 0 .47-.02.69-.08C13.58 17.32 12.98 19 12 19z"/></svg>
+            <span>Seat Heat</span>
+            <button id="climate-passenger-seat-heat" class="seat-heat-btn" data-testid="climate-passenger-seat-heat"
+                    data-state="off" aria-label="Passenger seat heat level" onclick="toggleSeatHeat('passenger')">OFF</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── PHONE ─── -->
+    <div id="screen-phone" class="screen hidden" data-testid="screen-phone" aria-label="Phone Screen">
+      <div class="screen-header">
+        <h2>Phone</h2>
+        <button id="phone-bluetooth-toggle" class="header-toggle" data-testid="phone-bluetooth-toggle"
+                data-state="off" aria-label="Toggle Bluetooth" onclick="toggleBluetooth()">Bluetooth: OFF</button>
+      </div>
+      <div id="phone-call-status" class="call-status hidden" data-testid="phone-call-status">
+        <svg style="width:64px;height:64px;color:#4a8c5c"><use href="#icon-phone"/></svg>
+        <div id="phone-call-contact"  class="call-contact"  data-testid="phone-call-contact"></div>
+        <div id="phone-call-duration" class="call-duration" data-testid="phone-call-duration">0:00</div>
+        <button id="phone-end-call" class="end-call-btn" data-testid="phone-end-call"
+                aria-label="End call" onclick="endCall()">End Call</button>
+      </div>
+      <div id="phone-main" class="phone-main" data-testid="phone-main">
+        <div id="phone-contacts-list" class="contacts-list" data-testid="phone-contacts-list">
+          <div id="contact-alice" class="contact-item" data-testid="contact-alice">
+            <span class="contact-avatar">AJ</span>
+            <span class="contact-name">Alice Johnson</span>
+            <span class="contact-number">555-0101</span>
+            <button class="call-btn" aria-label="Call Alice Johnson" onclick="initiateCall('Alice Johnson','555-0101')">
+              <svg style="width:16px;height:16px"><use href="#icon-phone"/></svg>
+            </button>
+          </div>
+          <div id="contact-bob" class="contact-item" data-testid="contact-bob">
+            <span class="contact-avatar">BS</span>
+            <span class="contact-name">Bob Smith</span>
+            <span class="contact-number">555-0102</span>
+            <button class="call-btn" aria-label="Call Bob Smith" onclick="initiateCall('Bob Smith','555-0102')">
+              <svg style="width:16px;height:16px"><use href="#icon-phone"/></svg>
+            </button>
+          </div>
+          <div id="contact-carol" class="contact-item" data-testid="contact-carol">
+            <span class="contact-avatar">CD</span>
+            <span class="contact-name">Carol Davis</span>
+            <span class="contact-number">555-0103</span>
+            <button class="call-btn" aria-label="Call Carol Davis" onclick="initiateCall('Carol Davis','555-0103')">
+              <svg style="width:16px;height:16px"><use href="#icon-phone"/></svg>
+            </button>
+          </div>
+          <div id="contact-dave" class="contact-item" data-testid="contact-dave">
+            <span class="contact-avatar">DW</span>
+            <span class="contact-name">Dave Wilson</span>
+            <span class="contact-number">555-0104</span>
+            <button class="call-btn" aria-label="Call Dave Wilson" onclick="initiateCall('Dave Wilson','555-0104')">
+              <svg style="width:16px;height:16px"><use href="#icon-phone"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="phone-dialpad" class="dialpad" data-testid="phone-dialpad">
+          <div id="phone-dial-display" class="dial-display" data-testid="phone-dial-display" aria-live="polite"></div>
+          <div class="dial-grid">
+            <button class="dial-key" data-testid="dial-key-1" onclick="dialDigit('1')">1</button>
+            <button class="dial-key" data-testid="dial-key-2" onclick="dialDigit('2')">2</button>
+            <button class="dial-key" data-testid="dial-key-3" onclick="dialDigit('3')">3</button>
+            <button class="dial-key" data-testid="dial-key-4" onclick="dialDigit('4')">4</button>
+            <button class="dial-key" data-testid="dial-key-5" onclick="dialDigit('5')">5</button>
+            <button class="dial-key" data-testid="dial-key-6" onclick="dialDigit('6')">6</button>
+            <button class="dial-key" data-testid="dial-key-7" onclick="dialDigit('7')">7</button>
+            <button class="dial-key" data-testid="dial-key-8" onclick="dialDigit('8')">8</button>
+            <button class="dial-key" data-testid="dial-key-9" onclick="dialDigit('9')">9</button>
+            <button class="dial-key" data-testid="dial-key-star"  onclick="dialDigit('*')">*</button>
+            <button class="dial-key" data-testid="dial-key-0"     onclick="dialDigit('0')">0</button>
+            <button class="dial-key" data-testid="dial-key-hash"  onclick="dialDigit('#')">#</button>
+          </div>
+          <div class="dial-actions">
+            <button id="phone-call-button" class="call-action-btn" data-testid="phone-call-button" aria-label="Call dialed number" onclick="callDialed()">
+              <svg style="width:18px;height:18px"><use href="#icon-phone"/></svg> Call
+            </button>
+            <button id="phone-dial-clear" class="dial-clear-btn" data-testid="phone-dial-clear" aria-label="Clear last digit" onclick="clearDial()">⌫</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── VEHICLE STATUS ─── -->
+    <div id="screen-vehicle" class="screen hidden" data-testid="screen-vehicle" aria-label="Vehicle Status Screen">
+      <div class="screen-header"><h2>Vehicle Status</h2></div>
+      <div class="vehicle-grid">
+        <div class="vehicle-card" id="vehicle-fuel-card" data-testid="vehicle-fuel-card">
+          <svg class="vc-icon-svg" style="color:#b07828"><use href="#icon-fuel"/></svg>
+          <div class="vc-label">Fuel Level</div>
+          <div id="vehicle-fuel-value" class="vc-value" data-testid="vehicle-fuel-value">75%</div>
+          <div class="mini-gauge"><div id="vehicle-fuel-gauge" class="gauge-fill" data-testid="vehicle-fuel-gauge" style="width:75%"></div></div>
+        </div>
+        <div class="vehicle-card" id="vehicle-battery-card" data-testid="vehicle-battery-card">
+          <svg class="vc-icon-svg" style="color:#4a8c5c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="7" width="18" height="11" rx="2"/><path d="M22 11v3"/><line x1="6" y1="12" x2="12" y2="12"/><line x1="9" y1="9"  x2="9"  y2="15"/></svg>
+          <div class="vc-label">Battery</div>
+          <div id="vehicle-battery-value" class="vc-value" data-testid="vehicle-battery-value">12.6 V</div>
+        </div>
+        <div class="vehicle-card" id="vehicle-oil-card" data-testid="vehicle-oil-card">
+          <svg class="vc-icon-svg" style="color:#a03838" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+          <div class="vc-label">Oil Temp</div>
+          <div id="vehicle-oil-value" class="vc-value" data-testid="vehicle-oil-value">90°C</div>
+        </div>
+        <div class="vehicle-card" id="vehicle-odometer-card" data-testid="vehicle-odometer-card">
+          <svg class="vc-icon-svg" style="color:#6a48a0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="vc-label">Odometer</div>
+          <div id="vehicle-odometer-value" class="vc-value" data-testid="vehicle-odometer-value">24,381 km</div>
+        </div>
+        <div class="vehicle-card" id="vehicle-speed-card" data-testid="vehicle-speed-card">
+          <svg class="vc-icon-svg" style="color:#306888"><use href="#icon-vehicle"/></svg>
+          <div class="vc-label">Speed</div>
+          <div id="vehicle-speed-value" class="vc-value" data-testid="vehicle-speed-value">0 km/h</div>
+        </div>
+        <div class="vehicle-card" id="vehicle-trip-card" data-testid="vehicle-trip-card">
+          <svg class="vc-icon-svg" style="color:#3a68c0"><use href="#icon-navigation"/></svg>
+          <div class="vc-label">Trip</div>
+          <div id="vehicle-trip-value" class="vc-value" data-testid="vehicle-trip-value">142.3 km</div>
+        </div>
+        <div class="vehicle-card vehicle-card-wide" id="vehicle-tires-card" data-testid="vehicle-tires-card">
+          <div class="vc-label" style="margin-bottom:12px">Tire Pressure (PSI)</div>
+          <div class="tire-diagram">
+            <div class="tire-row">
+              <div id="vehicle-tire-fl" class="tire-indicator" data-testid="vehicle-tire-fl" data-state="ok">
+                <span class="tire-label">FL</span><span id="vehicle-tire-fl-value" data-testid="vehicle-tire-fl-value">34</span>
+              </div>
+              <div id="vehicle-tire-fr" class="tire-indicator" data-testid="vehicle-tire-fr" data-state="ok">
+                <span class="tire-label">FR</span><span id="vehicle-tire-fr-value" data-testid="vehicle-tire-fr-value">34</span>
+              </div>
+            </div>
+            <div class="tire-row">
+              <div id="vehicle-tire-rl" class="tire-indicator" data-testid="vehicle-tire-rl" data-state="ok">
+                <span class="tire-label">RL</span><span id="vehicle-tire-rl-value" data-testid="vehicle-tire-rl-value">32</span>
+              </div>
+              <div id="vehicle-tire-rr" class="tire-indicator" data-testid="vehicle-tire-rr" data-state="ok">
+                <span class="tire-label">RR</span><span id="vehicle-tire-rr-value" data-testid="vehicle-tire-rr-value">32</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SETTINGS ─── -->
+    <div id="screen-settings" class="screen hidden" data-testid="screen-settings" aria-label="Settings Screen">
+      <div class="screen-header"><h2>Settings</h2></div>
+      <div class="settings-list">
+        <div class="settings-row" id="settings-theme-row" data-testid="settings-theme-row">
+          <span class="settings-label">Display Theme</span>
+          <button id="settings-theme-toggle" data-testid="settings-theme-toggle" data-state="dark" aria-label="Toggle display theme" onclick="toggleTheme()">Dark Mode</button>
+        </div>
+        <div class="settings-row" id="settings-brightness-row" data-testid="settings-brightness-row">
+          <span class="settings-label">Brightness</span>
+          <div class="settings-ctrl">
+            <button id="settings-brightness-down" data-testid="settings-brightness-down" aria-label="Decrease brightness" onclick="adjustBrightness(-10)">−</button>
+            <span   id="settings-brightness-value" data-testid="settings-brightness-value" aria-live="polite">80%</span>
+            <button id="settings-brightness-up"   data-testid="settings-brightness-up"   aria-label="Increase brightness" onclick="adjustBrightness(10)">+</button>
+          </div>
+        </div>
+        <div class="settings-row" id="settings-language-row" data-testid="settings-language-row">
+          <span class="settings-label">Language</span>
+          <select id="settings-language-select" data-testid="settings-language-select" aria-label="Language selection" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="tr">Türkçe</option>
+          </select>
+        </div>
+        <div class="settings-row" id="settings-units-row" data-testid="settings-units-row">
+          <span class="settings-label">Units</span>
+          <button id="settings-units-toggle" data-testid="settings-units-toggle" data-state="metric" aria-label="Toggle metric or imperial" onclick="toggleUnits()">Metric</button>
+        </div>
+        <div class="settings-row" id="settings-bluetooth-row" data-testid="settings-bluetooth-row">
+          <span class="settings-label">Bluetooth</span>
+          <button id="settings-bluetooth-toggle" data-testid="settings-bluetooth-toggle" data-state="off" aria-label="Toggle Bluetooth" onclick="toggleBluetooth()">OFF</button>
+        </div>
+        <div class="settings-row" id="settings-wifi-row" data-testid="settings-wifi-row">
+          <span class="settings-label">Wi-Fi</span>
+          <button id="settings-wifi-toggle" data-testid="settings-wifi-toggle" data-state="on" aria-label="Toggle Wi-Fi" onclick="toggleWifi()">ON</button>
+        </div>
+        <div class="settings-row settings-info" id="settings-version-row" data-testid="settings-version-row">
+          <span class="settings-label">System Version</span>
+          <span id="settings-version-value" data-testid="settings-version-value">AutoCenter OS v2.4.1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── CAMERA ─── -->
+    <div id="screen-camera" class="screen hidden" data-testid="screen-camera" aria-label="Camera Screen">
+      <div class="screen-header">
+        <h2>Camera</h2>
+        <div class="camera-tabs">
+          <button id="camera-view-rear"  class="cam-tab active" data-testid="camera-view-rear"  aria-label="Rear view"  onclick="setCameraView('rear')">Rear</button>
+          <button id="camera-view-front" class="cam-tab"        data-testid="camera-view-front" aria-label="Front view" onclick="setCameraView('front')">Front</button>
+          <button id="camera-view-360"   class="cam-tab"        data-testid="camera-view-360"   aria-label="360 view"   onclick="setCameraView('360')">360°</button>
+        </div>
+      </div>
+      <div id="camera-feed" class="camera-feed" data-testid="camera-feed" data-view="rear" aria-label="Camera feed">
+        <div class="park-guidelines">
+          <div class="guide-line guide-left"></div>
+          <div class="guide-line guide-center"></div>
+          <div class="guide-line guide-right"></div>
+        </div>
+        <div id="camera-view-label" class="camera-view-label" data-testid="camera-view-label">REAR VIEW</div>
+      </div>
+      <div id="camera-sensors" class="sensor-panel" data-testid="camera-sensors">
+        <div class="sensor-group" id="sensor-group-rear" data-testid="sensor-group-rear">
+          <div class="sensor-group-label">Rear</div>
+          <div class="sensor-dots">
+            <div id="sensor-rear-left"         class="sensor-dot" data-testid="sensor-rear-left"         data-state="clear">●</div>
+            <div id="sensor-rear-center-left"  class="sensor-dot" data-testid="sensor-rear-center-left"  data-state="clear">●</div>
+            <div id="sensor-rear-center-right" class="sensor-dot" data-testid="sensor-rear-center-right" data-state="clear">●</div>
+            <div id="sensor-rear-right"        class="sensor-dot" data-testid="sensor-rear-right"        data-state="clear">●</div>
+          </div>
+          <div id="sensor-rear-distance" class="sensor-dist" data-testid="sensor-rear-distance">Clear</div>
+        </div>
+        <div class="sensor-group" id="sensor-group-front" data-testid="sensor-group-front">
+          <div class="sensor-group-label">Front</div>
+          <div class="sensor-dots">
+            <div id="sensor-front-left"         class="sensor-dot" data-testid="sensor-front-left"         data-state="clear">●</div>
+            <div id="sensor-front-center-left"  class="sensor-dot" data-testid="sensor-front-center-left"  data-state="clear">●</div>
+            <div id="sensor-front-center-right" class="sensor-dot" data-testid="sensor-front-center-right" data-state="clear">●</div>
+            <div id="sensor-front-right"        class="sensor-dot" data-testid="sensor-front-right"        data-state="clear">●</div>
+          </div>
+          <div id="sensor-front-distance" class="sensor-dist" data-testid="sensor-front-distance">Clear</div>
+        </div>
+      </div>
+      <div class="camera-sim-controls" id="camera-sim-controls" data-testid="camera-sim-controls">
+        <span class="sim-label">Simulate obstacle:</span>
+        <button id="camera-sim-obstacle-near"   data-testid="camera-sim-obstacle-near"   aria-label="Simulate near obstacle"   onclick="simulateObstacle('near')">Near</button>
+        <button id="camera-sim-obstacle-medium" data-testid="camera-sim-obstacle-medium" aria-label="Simulate medium obstacle" onclick="simulateObstacle('medium')">Medium</button>
+        <button id="camera-sim-obstacle-clear"  data-testid="camera-sim-obstacle-clear"  aria-label="Clear obstacle"           onclick="simulateObstacle('clear')">Clear</button>
+      </div>
+    </div>
+
+    <!-- ─── WEATHER ─── -->
+    <div id="screen-weather" class="screen hidden" data-testid="screen-weather" aria-label="Weather Screen">
+      <div class="screen-header"><h2>Weather</h2></div>
+      <div class="weather-main">
+        <div class="weather-current" id="weather-current" data-testid="weather-current">
+          <div class="weather-icon-large">
+            <svg style="width:80px;height:80px;color:#5888b0"><use href="#icon-partly-cloudy"/></svg>
+          </div>
+          <div class="weather-current-info">
+            <div id="weather-temperature" class="weather-temp" data-testid="weather-temperature">18°C</div>
+            <div id="weather-condition"   class="weather-cond" data-testid="weather-condition">Partly Cloudy</div>
+            <div class="weather-details">
+              <span id="weather-humidity" data-testid="weather-humidity">Humidity: 65%</span>
+              <span id="weather-wind"     data-testid="weather-wind">Wind: 12 km/h</span>
+              <span id="weather-feels"    data-testid="weather-feels">Feels like: 16°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="weather-forecast" id="weather-forecast" data-testid="weather-forecast">
+          <div class="forecast-card" id="forecast-today" data-testid="forecast-today">
+            <div class="fc-day">Today</div>
+            <svg style="width:32px;height:32px;color:#6a7888"><use href="#icon-partly-cloudy"/></svg>
+            <div class="fc-temps"><span class="fc-high">20°</span><span class="fc-low">14°</span></div>
+          </div>
+          <div class="forecast-card" id="forecast-wed" data-testid="forecast-wed">
+            <div class="fc-day">Wed</div>
+            <svg style="width:32px;height:32px;color:#c09040"><use href="#icon-sun"/></svg>
+            <div class="fc-temps"><span class="fc-high">22°</span><span class="fc-low">15°</span></div>
+          </div>
+          <div class="forecast-card" id="forecast-thu" data-testid="forecast-thu">
+            <div class="fc-day">Thu</div>
+            <svg style="width:32px;height:32px;color:#4878a8"><use href="#icon-rain"/></svg>
+            <div class="fc-temps"><span class="fc-high">17°</span><span class="fc-low">11°</span></div>
+          </div>
+          <div class="forecast-card" id="forecast-fri" data-testid="forecast-fri">
+            <div class="fc-day">Fri</div>
+            <svg style="width:32px;height:32px;color:#6a7888"><use href="#icon-cloud"/></svg>
+            <div class="fc-temps"><span class="fc-high">19°</span><span class="fc-low">13°</span></div>
+          </div>
+          <div class="forecast-card" id="forecast-sat" data-testid="forecast-sat">
+            <div class="fc-day">Sat</div>
+            <svg style="width:32px;height:32px;color:#c09040"><use href="#icon-sun"/></svg>
+            <div class="fc-temps"><span class="fc-high">24°</span><span class="fc-low">16°</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screens-container -->
+
+  <!-- ═══════════ BOTTOM NAV ═══════════ -->
+  <div id="bottom-nav" data-testid="bottom-nav">
+    <button id="nav-home-button" class="nav-btn" data-testid="nav-home-button" aria-label="Go to home screen" onclick="navigateTo('home')">
+      <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </button>
+    <button id="nav-back-button" class="nav-btn" data-testid="nav-back-button" aria-label="Go back" onclick="navigateBack()">← Back</button>
+    <div class="volume-controls">
+      <button id="nav-volume-down" class="nav-btn" data-testid="nav-volume-down" aria-label="Volume down" onclick="adjustVolume(-5)">
+        <svg style="width:16px;height:16px"><path fill="currentColor" d="M18.5 12A4.5 4.5 0 0 0 16 7.97V16c1.48-.73 2.5-2.25 2.5-4zM5 9v6h4l5 5V4L9 9H5z"/></svg>
+      </button>
+      <span id="nav-volume-value" data-testid="nav-volume-value" aria-live="polite">50</span>
+      <button id="nav-volume-up" class="nav-btn" data-testid="nav-volume-up" aria-label="Volume up" onclick="adjustVolume(5)">
+        <svg style="width:16px;height:16px"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      </button>
+    </div>
+    <button id="nav-mute-button" class="nav-btn" data-testid="nav-mute-button" data-state="unmuted" aria-label="Toggle mute" onclick="toggleMute()">Mute</button>
+    <span id="nav-current-screen" data-testid="nav-current-screen" class="screen-indicator">HOME</span>
+  </div>
+
+</div><!-- /simulator-root -->
+<script src="app.js"></script>
+</body>
+</html>

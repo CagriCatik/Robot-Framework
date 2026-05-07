@@ -1,0 +1,18 @@
+# YOLO11 dataset configuration — Automotive Simulator App Icons
+# Run  python vision/scripts/capture_training_data.py  first to populate the images.
+
+path: ../datasets        # root of the dataset (relative to this file)
+train: images/train
+val:   images/val
+
+# 8 app-icon classes — same order used in training labels
+nc: 8
+names:
+  0: navigation
+  1: media
+  2: climate
+  3: phone
+  4: vehicle
+  5: settings
+  6: camera
+  7: weather

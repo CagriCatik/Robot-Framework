@@ -56,6 +56,3 @@ Welcome to the technical documentation for the Robot Framework project. This gui
 13. **[Troubleshooting](13_troubleshooting.md)**
     Solutions to common beginner issues and where to find help.
 
----
-
-*This documentation was generated from tutorial transcripts and enhanced with industry best practices.*

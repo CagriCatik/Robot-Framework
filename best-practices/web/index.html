@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robot Demo Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar is-hidden" data-testid="app-sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">RF</div>
+        <div>
+          <strong>Robot Demo</strong>
+          <span>Admin Console</span>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Hauptnavigation">
+        <button type="button" data-route="dashboard" data-testid="nav-dashboard">
+          <span class="nav-icon dashboard-icon" aria-hidden="true"></span>
+          <span>Dashboard</span>
+        </button>
+        <button type="button" data-route="users" data-testid="nav-users">
+          <span class="nav-icon users-icon" aria-hidden="true"></span>
+          <span>Benutzer</span>
+        </button>
+        <button type="button" data-route="checkout" data-testid="nav-checkout">
+          <span class="nav-icon checkout-icon" aria-hidden="true"></span>
+          <span>Checkout</span>
+        </button>
+      </nav>
+      <button class="logout-button" type="button" data-testid="nav-logout">
+        <span class="nav-icon logout-icon" aria-hidden="true"></span>
+        <span>Abmelden</span>
+      </button>
+    </aside>
+
+    <main id="app" class="main" data-testid="app-root"></main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

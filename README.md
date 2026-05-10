@@ -1,6 +1,8 @@
 <div align="center">
 
-# Robot Framework for Automotive Infotainment
+# Robot Framework
+
+A comprehensive, beginner-friendly documentation and automation project designed for testing activities using Robot Framework.
 
 <img src="https://robotframework.org/img/RF.svg" alt="Robot Framework logo" width="220" />
 
@@ -13,7 +15,7 @@
 
 </div>
 
-A comprehensive, beginner-friendly documentation and automation project designed for testing **Automotive Infotainment Systems** using **Robot Framework**.
+A comprehensive, beginner-friendly documentation and automation project designed for testing activities using **Robot Framework**.
 
 It is tailored for learners, QA engineers, and developers who want a practical path from Robot Framework basics to advanced real-world usage, including custom computer vision integration for non-standard UIs.
 
@@ -21,15 +23,15 @@ It is tailored for learners, QA engineers, and developers who want a practical p
 
 ##  Overview
 
-This project provides organized documentation and hands-on examples for effectively learning and utilizing Robot Framework. It specifically highlights automation techniques relevant to complex graphical interfaces found in automotive environments.
+This project provides organized documentation and hands-on examples for effectively learning and utilizing Robot Framework. It combines standard web automation with advanced techniques like Custom Python Libraries and Computer Vision for complex graphical interfaces.
 
 ### Key Features
-- **Robot Framework Fundamentals:** Test case structure, syntax, keywords, and variables.
-- **Advanced Automation:** Custom Python libraries, resource files, and test suites.
-- **Computer Vision Integration:** Utilizing OpenCV and EasyOCR to automate interaction with non-standard, custom-rendered infotainment UIs.
-- **Hands-on Labs:** Interactive `learning-lab/` and `tutorials/` for practical experience.
+- **Robot Framework Best Practices:** Clean project structure, naming conventions (TC_XX), and reusable resource files.
+- **Modern UI Automation:** Testing high-fidelity web interfaces featuring Glassmorphism and dynamic CSS animations.
+- **Custom Python Libraries:** Seamless integration of Python logic (e.g., dynamic test data generation) into Robot keywords.
+- **Computer Vision Integration:** Utilizing OpenCV and EasyOCR to automate interaction with non-standard, custom-rendered UIs (e.g., Automotive Infotainment).
 - **Beautiful Documentation:** Clean, modern documentation generated with MkDocs Material.
-- **CI/CD Deployment:** Automated deployment of documentation to GitHub Pages via GitHub Actions.
+- **CI/CD Ready:** Integrated GitHub Actions for automated documentation deployment.
 
 ---
 
@@ -37,15 +39,19 @@ This project provides organized documentation and hands-on examples for effectiv
 
 ```shell
 .
+├── best-practices/       # Showcase for modern web automation & enterprise standards
+│   ├── libraries/        # Custom Python Libraries
+│   ├── resources/        # Reusable Page Objects and Browser Keywords
+│   ├── tests/            # Advanced Test Suites (Login, Checkout, User MGMT)
+│   ├── web/              # Modern Demo Web Application
+│   └── run_tests.bat     # One-click test execution script
+├── dev/                  # Development resources and Keyword Cheat-Sheets
 ├── docs/                 # Markdown documentation sources
 ├── learning-lab/         # Hands-on practice and exercises
 ├── project/              # Core automation project files
-├── simulator/            # Infotainment UI simulation scripts
+├── simulator/            # UI simulation scripts
 ├── tutorials/            # Step-by-step guides and examples
-├── .github/workflows/    # CI/CD pipelines (MkDocs Deploy)
-├── mkdocs.yml            # MkDocs site configuration
 ├── requirements-rf.txt   # Robot Framework & Computer Vision dependencies
-├── requirements-docs.txt # Python dependencies for building the docs
 └── run.bat               # Windows script for local setup and preview
 ```
 
@@ -73,9 +79,11 @@ cd Robot-Framework
 run.bat
 ```
 
-3. Open the documentation in your browser:
-```text
-http://127.0.0.1:8000
+3. **Run the Best Practices Suite**:
+Navigate to the `best-practices/` directory and execute the tests:
+```powershell
+cd best-practices
+.\run_tests.bat
 ```
 
 ---
@@ -130,7 +138,7 @@ The documentation source files are stored in the `docs/` directory.
 ## Recommended Use Cases
 
 This project is highly beneficial for:
-- Learning Robot Framework from scratch.
-- Training automation engineers on automotive/infotainment testing.
-- Implementing Computer Vision (OpenCV/EasyOCR) in test automation.
+- Learning Robot Framework from scratch with modern standards.
+- Training automation engineers on advanced web and UI testing.
+- Implementing Computer Vision (OpenCV/EasyOCR) for non-standard interfaces.
 - Maintaining a searchable, centralized QA knowledge base.

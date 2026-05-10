@@ -1,6 +1,7 @@
 # Robot Framework Cheat Sheet
 
-Aktuelle Referenz: Robot Framework User Guide 7.4.2. Die wichtigsten CLI-Werkzeuge sind `robot` für Testausführung und `rebot` für Nachbearbeitung von Outputs. ([robotframework.org][1])
+Aktuelle Referenz: Robot Framework User Guide 7.4.2. Die wichtigsten CLI-Werkzeuge sind `robot` für Testausführung und `rebot` für Nachbearbeitung von Outputs. [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+
 
 ---
 
@@ -507,5 +508,3 @@ robot -d results -V variables/dev.py tests/
 | Report neu bauen       | `rebot output.xml`                      |
 | Outputs mergen         | `rebot --merge output1.xml output2.xml` |
 | Parallel mit Pabot     | `pabot --processes 4 tests/`            |
-
-[1]: https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html"Robot Framework User Guide"

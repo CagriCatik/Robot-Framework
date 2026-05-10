@@ -2,7 +2,7 @@
 
 # Robot Framework
 
-A comprehensive, beginner-friendly documentation and automation project designed for testing activities using Robot Framework.
+**A practical, beginner-friendly documentation and automation project for learning and applying test automation with Robot Framework.**
 
 <img src="https://robotframework.org/img/RF.svg" alt="Robot Framework logo" width="220" />
 
@@ -10,12 +10,12 @@ A comprehensive, beginner-friendly documentation and automation project designed
 
 [![Robot Framework](https://img.shields.io/badge/Robot_Framework-6.1+-000000.svg?logo=robot-framework)](https://robotframework.org/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![MkDocs Material](https://img.shields.io/badge/Docs-MkDocs_Material-526CFE?logo=materialformkdocs)](https://cagricatik.github.io/Robot-Framework/)
+[![Documentation](https://img.shields.io/badge/Docs-MkDocs_Material-526CFE?logo=materialformkdocs)](https://cagricatik.github.io/Robot-Framework/)
 [![OpenCV](https://img.shields.io/badge/Computer_Vision-OpenCV-5C3EE8.svg?logo=opencv&logoColor=white)](https://opencv.org/)
 
 </div>
 
-A comprehensive, beginner-friendly documentation and automation project designed for testing activities using **Robot Framework**.
+
 
 It is tailored for learners, QA engineers, and developers who want a practical path from Robot Framework basics to advanced real-world usage, including custom computer vision integration for non-standard UIs.
 

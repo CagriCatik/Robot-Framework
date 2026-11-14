@@ -1,6 +1,7 @@
 .venv/
 *.pyc
 *.png
+!assets/screenshots/*.png
 __pycache__/
-project/results/
+*/results/
 site/

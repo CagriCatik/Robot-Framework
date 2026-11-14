@@ -4,14 +4,18 @@ Library    String
 Library    DateTime
 
 *** Variables ***
-${SIMULATOR_URL}    file:///c:/Users/mccat/Desktop/Robot-Framework/simulator/index.html
+${SIMULATOR_URL}    ${EMPTY}
 ${BROWSER}          chrome
 
 *** Keywords ***
 Open Center Information Simulator
+    ${url}=    Set Variable If    '${SIMULATOR_URL}' != ''    ${SIMULATOR_URL}    ${EMPTY}
+    IF    '${url}' == ''
+        ${url}=    Evaluate    pathlib.Path(r'''${CURDIR}''').resolve().parents[1].joinpath('simulator', 'index.html').as_uri()    modules=pathlib
+    END
     ${timestamp}=    Get Current Date    result_format=%Y%m%d_%H%M%S
     Set Screenshot Directory    ${OUTPUTDIR}/screenshots_${timestamp}
-    Open Browser    ${SIMULATOR_URL}    ${BROWSER}
+    Open Browser    ${url}    ${BROWSER}
     Maximize Browser Window
     Set Selenium Speed    0.5s
     Wait Until Element Is Visible    id:screen-home    timeout=5s

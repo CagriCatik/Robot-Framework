@@ -111,6 +111,14 @@ pip install -r requirements-rf.txt
 pip install -r vision/requirements-vision.txt
 ```
 
+### 3. Editor Setup (VS Code / Antigravity / Cursor)
+
+Recommended extensions (`d-biehl.robotcode`, `ms-python.python`, `tamasfe.even-better-toml`) are defined in `.vscode/extensions.json`. To install them automatically for all detected editors:
+
+```bash
+python scripts/install_extensions.py --all
+```
+
 ---
 
 ## Running the Projects

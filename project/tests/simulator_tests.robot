@@ -16,7 +16,7 @@ Verify System Boot and Home Screen
 Climate Control - Temperature and Seat Heat
     [Tags]    functional    climate
     Navigate To App    climate
-    Sleep    1s
+    Wait Until Element Is Visible    id:climate-temperature-value    timeout=5s
     
     # Test Temperature Adjustment
     ${initial_temp}=    Get Text    id:climate-temperature-value
@@ -41,7 +41,7 @@ Climate Control - Temperature and Seat Heat
 Media Player - Controls and Volume
     [Tags]    functional    media
     Navigate To App    media
-    Sleep    1s
+    Wait Until Element Is Visible    id:media-play-pause-button    timeout=5s
     
     # Toggle Playback
     ${state}=    Toggle Media Playback
@@ -60,7 +60,7 @@ Media Player - Controls and Volume
 Settings - Theme and Units Toggle
     [Tags]    functional    settings
     Navigate To App    settings
-    Sleep    1s
+    Wait Until Element Is Visible    id:settings-theme-toggle    timeout=5s
     
     # Theme Toggle
     ${theme_before}=    Get Element Attribute    id:settings-theme-toggle    data-state
@@ -69,31 +69,35 @@ Settings - Theme and Units Toggle
     ${theme_after}=     Get Element Attribute    id:settings-theme-toggle    data-state
     Should Not Be Equal    ${theme_before}    ${theme_after}
     
-    # Units Toggle
-    Element Text Should Be    id:settings-units-toggle    Metric
+    # Units Toggle (mapped via UNIT_LABELS)
+    Element Text Should Be    id:settings-units-toggle    ${UNIT_LABELS}[metric]
     Click Button    id:settings-units-toggle
-    Element Text Should Be    id:settings-units-toggle    Imperial
+    Element Text Should Be    id:settings-units-toggle    ${UNIT_LABELS}[imperial]
+    Click Button    id:settings-units-toggle
+    Element Text Should Be    id:settings-units-toggle    ${UNIT_LABELS}[metric]
     
     [Teardown]    Go To Home
 
+Settings - Language Mapping Verification
+    [Tags]    functional    settings    mapping
+    FOR    ${lang}    IN    de    fr    tr    en
+        Verify Language Greeting Mapping    ${lang}
+    END
+
 Safety Camera - Obstacle Simulation
-    [Tags]    functional    camera
+    [Tags]    functional    camera    mapping
     Navigate To App    camera
-    Sleep    1s
+    Wait Until Element Is Visible    id:camera-sim-obstacle-near    timeout=5s
     
     # Verify Default State (Clear)
     Element Attribute Value Should Be    id:sensor-rear-left    data-state    clear
-    Element Text Should Be               id:sensor-rear-distance    Clear
+    Element Text Should Be               id:sensor-rear-distance    ${OBSTACLE_DISTANCES}[clear]
     
-    # simulate near obstacle
-    Click Button    id:camera-sim-obstacle-near
-    Capture Page Screenshot
-    Element Attribute Value Should Be    id:sensor-rear-left    data-state    near
-    Element Text Should Be               id:sensor-rear-distance    < 0.3 m
-    
-    # Clear Simulation
-    Click Button    id:camera-sim-obstacle-clear
-    Element Attribute Value Should Be    id:sensor-rear-left    data-state    clear
+    # Verify all mapped obstacle states (medium -> near -> clear)
+    FOR    ${level}    IN    medium    near    clear
+        Verify Obstacle Simulation Level    ${level}
+        Capture Page Screenshot
+    END
     
     [Teardown]    Go To Home
 

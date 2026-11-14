@@ -123,16 +123,30 @@ function updateNowPlaying() {
 }
 
 // ── Climate ─────────────────────────────────────
+function _formatTemp(celsius) {
+  if (AppState.settings.units === 'imperial') {
+    return Math.round((celsius * 9) / 5 + 32) + '°F';
+  }
+  return celsius + '°C';
+}
+
+function _renderClimateTemps() {
+  const s = AppState.climate;
+  document.getElementById('climate-temperature-value').textContent = _formatTemp(s.driverTemp);
+  document.getElementById('climate-passenger-temp-value').textContent = _formatTemp(s.passengerTemp);
+  const outdoor = document.getElementById('status-outdoor-temp');
+  if (outdoor) outdoor.textContent = _formatTemp(18);
+}
+
 function adjustTemp(zone, delta) {
   const s = AppState.climate;
   if (zone === 'driver' || s.sync) {
     s.driverTemp = Math.min(30, Math.max(16, s.driverTemp + delta));
-    document.getElementById('climate-temperature-value').textContent = s.driverTemp + '°C';
   }
   if (zone === 'passenger' || s.sync) {
     s.passengerTemp = Math.min(30, Math.max(16, s.passengerTemp + delta));
-    document.getElementById('climate-passenger-temp-value').textContent = s.passengerTemp + '°C';
   }
+  _renderClimateTemps();
 }
 
 function adjustFan(delta) {
@@ -158,7 +172,7 @@ function toggleClimate(feature) {
   btn.textContent = s[feature] ? lbl[feature][0] : lbl[feature][1];
   if (feature === 'sync' && s[feature]) {
     s.passengerTemp = s.driverTemp;
-    document.getElementById('climate-passenger-temp-value').textContent = s.driverTemp + '°C';
+    _renderClimateTemps();
   }
 }
 
@@ -313,6 +327,8 @@ function setCameraView(view) {
 
 function simulateObstacle(level) {
   AppState.camera.obstacle = level;
+  const feed = document.getElementById('camera-feed');
+  if (feed) feed.dataset.obstacle = level;
   const map = { clear: { state: 'clear', text: 'Clear' }, medium: { state: 'medium', text: '1.5 m' }, near: { state: 'near', text: '< 0.3 m' } };
   const info = map[level];
   ['sensor-rear-left', 'sensor-rear-center-left', 'sensor-rear-center-right', 'sensor-rear-right',
@@ -339,7 +355,33 @@ function adjustBrightness(delta) {
   document.getElementById('screens-container').style.filter = 'brightness(' + (s.brightness / 100) + ')';
 }
 
-function changeLanguage(lang) { AppState.settings.language = lang; }
+const I18N = {
+  en: { welcome: 'Welcome', settings: 'Settings', theme: 'Display Theme', brightness: 'Brightness', language: 'Language', units: 'Units', version: 'System Version' },
+  de: { welcome: 'Willkommen', settings: 'Einstellungen', theme: 'Anzeigedesign', brightness: 'Helligkeit', language: 'Sprache', units: 'Einheiten', version: 'Systemversion' },
+  fr: { welcome: 'Bienvenue', settings: 'Paramètres', theme: 'Thème', brightness: 'Luminosité', language: 'Langue', units: 'Unités', version: 'Version système' },
+  tr: { welcome: 'Hoş Geldiniz', settings: 'Ayarlar', theme: 'Tema', brightness: 'Parlaklık', language: 'Dil', units: 'Birimler', version: 'Sistem Sürümü' },
+};
+
+function changeLanguage(lang) {
+  AppState.settings.language = lang;
+  document.documentElement.lang = lang;
+  const t = I18N[lang] || I18N.en;
+  const welcome = document.querySelector('#screen-home .home-welcome');
+  if (welcome) welcome.textContent = t.welcome;
+  const settingsTitle = document.querySelector('#screen-settings .screen-header h2');
+  if (settingsTitle) settingsTitle.textContent = t.settings;
+  const rowLabels = {
+    'settings-theme-row': t.theme,
+    'settings-brightness-row': t.brightness,
+    'settings-language-row': t.language,
+    'settings-units-row': t.units,
+    'settings-version-row': t.version,
+  };
+  Object.entries(rowLabels).forEach(([rowId, label]) => {
+    const el = document.querySelector('#' + rowId + ' .settings-label');
+    if (el) el.textContent = label;
+  });
+}
 
 function toggleUnits() {
   const s = AppState.settings;
@@ -348,6 +390,7 @@ function toggleUnits() {
   btn.dataset.state = s.units;
   btn.textContent = s.units === 'metric' ? 'Metric' : 'Imperial';
   _updateVehicleUnits();
+  _renderClimateTemps();
 }
 
 function toggleWifi() {
@@ -382,6 +425,13 @@ function init() {
   updateHomeDate();
   renderTrack();
   _renderFanBars(AppState.climate.fanSpeed);
+  _renderClimateTemps();
+  const navInput = document.getElementById('nav-destination-input');
+  if (navInput) {
+    navInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') searchDestination();
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', init);

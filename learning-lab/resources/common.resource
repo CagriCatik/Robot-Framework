@@ -51,8 +51,8 @@ Open Simulator
     [Arguments]    ${url}=${SIMULATOR_URL}    ${browser}=${BROWSER}
     IF    '${HEADLESS}'.lower() in ['true', '1', 'yes']
         ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    modules=sys,selenium.webdriver
-        Call Method    ${options}    add_argument    --headless=new
-        Call Method    ${options}    add_argument    --window-size=1440,900
+        Call Method    ${options}    add_argument    --headless\=new
+        Call Method    ${options}    add_argument    --window-size\=1440,900
         Create Webdriver    Chrome    options=${options}
         Go To    ${url}
     ELSE

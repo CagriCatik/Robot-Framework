@@ -10,7 +10,7 @@
 
 [![Robot Framework](https://img.shields.io/badge/Robot_Framework-6.1+-000000.svg?logo=robot-framework)](https://robotframework.org/)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![Documentation](https://img.shields.io/badge/Docs-MkDocs_Material-526CFE?logo=materialformkdocs)](https://cagricatik.github.io/Robot-Framework/)
+[![Documentation](https://img.shields.io/badge/Docs-Zensical-526CFE)](https://cagricatik.github.io/Robot-Framework/)
 [![OpenCV](https://img.shields.io/badge/Computer_Vision-OpenCV-5C3EE8.svg?logo=opencv&logoColor=white)](https://opencv.org/)
 
 </div>
@@ -30,7 +30,7 @@ This project provides organized documentation and hands-on examples for effectiv
 - **Modern UI Automation:** Testing high-fidelity web interfaces featuring Glassmorphism and dynamic CSS animations.
 - **Custom Python Libraries:** Seamless integration of Python logic (e.g., dynamic test data generation) into Robot keywords.
 - **Computer Vision Integration:** Utilizing OpenCV and EasyOCR to automate interaction with non-standard, custom-rendered UIs (e.g., Automotive Infotainment).
-- **Beautiful Documentation:** Clean, modern documentation generated with MkDocs Material.
+- **Beautiful Documentation:** Clean, modern documentation generated with Zensical.
 - **CI/CD Ready:** Integrated GitHub Actions for automated documentation deployment.
 
 ---
@@ -112,7 +112,7 @@ pip install -r requirements-rf.txt
 
 ### 3. Serving Documentation locally
 ```bash
-mkdocs serve
+zensical serve
 ```
 
 ### 4. Running Tests
@@ -128,8 +128,8 @@ robot -d results tests/
 The documentation source files are stored in the `docs/` directory.
 
 1. Edit or add Markdown files inside `docs/`.
-2. Update navigation in `mkdocs.yml` if needed.
-3. Review changes locally using `mkdocs serve`.
+2. Update navigation in `zensical.toml` if needed.
+3. Review changes locally using `zensical serve`.
 4. Commit and push your changes to the `main` branch. 
 5. GitHub Actions will automatically build and deploy the updated site.
 

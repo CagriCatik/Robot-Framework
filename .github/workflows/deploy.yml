@@ -1,4 +1,4 @@
-name: Deploy MkDocs
+name: Deploy Zensical Docs
 
 on:
   push:
@@ -7,27 +7,34 @@ on:
       - master
     paths:
       - docs/**
-      - mkdocs.yml
+      - zensical.toml
       - requirements-docs.txt
       - .github/workflows/deploy.yml
   workflow_dispatch:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: mkdocs-deploy
+  group: zensical-deploy
   cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -41,32 +48,17 @@ jobs:
 
       - name: Show installed docs versions
         run: |
-          python -m mkdocs --version
-          pip show mkdocs mkdocs-material pymdown-extensions
+          zensical --version
+          pip show zensical
 
-      - name: Configure Git identity
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Build documentation
+        run: zensical build --clean
 
-      - name: Validate PAT secret
-        env:
-          MKDOCS_DEPLOY_TOKEN: ${{ secrets.MKDOCS_DEPLOY_TOKEN }}
-        run: |
-          if [ -z "$MKDOCS_DEPLOY_TOKEN" ]; then
-            echo "MKDOCS_DEPLOY_TOKEN is missing or not accessible in this workflow."
-            exit 1
-          fi
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
 
-      - name: Configure PAT remote
-        env:
-          MKDOCS_DEPLOY_TOKEN: ${{ secrets.MKDOCS_DEPLOY_TOKEN }}
-        run: |
-          git remote set-url origin "https://${{ github.repository_owner }}:${MKDOCS_DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-
-      - name: Verify Git authentication
-        run: |
-          git ls-remote --exit-code origin HEAD > /dev/null
-
-      - name: Build and deploy to gh-pages
-        run: mkdocs gh-deploy --force --clean --no-history
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

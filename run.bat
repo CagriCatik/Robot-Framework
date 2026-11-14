@@ -25,17 +25,17 @@ if exist "requirements-docs.txt" (
 
 echo.
 echo ==========================================
-echo   Starting MkDocs server at http://127.0.0.1:8000
+echo   Starting Zensical server at http://127.0.0.1:8000
 echo   Press Ctrl+C to stop the server.
 echo ==========================================
 echo.
 
-:: Run mkdocs
-mkdocs serve
+:: Run zensical
+zensical serve
 
 if %ERRORLEVEL% neq 0 (
     echo.
-    echo [!] Failed to start MkDocs. Ensure you have Python installed and requirements-docs.txt is valid.
+    echo [!] Failed to start Zensical. Ensure you have Python installed and requirements-docs.txt is valid.
     pause
 )
 
